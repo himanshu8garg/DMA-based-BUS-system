@@ -1,0 +1,81 @@
+
+State Machine - |ensc350_system|ubus:bus2|c2_op.op
+Name c2_op.op.stall c2_op.op.write c2_op.op.read c2_op.op.nop 
+c2_op.op.nop 0 0 0 0 
+c2_op.op.read 0 0 1 1 
+c2_op.op.write 0 1 0 1 
+c2_op.op.stall 1 0 0 1 
+
+State Machine - |ensc350_system|ubus:bus2|c2_op.slave
+Name c2_op.slave.s1 c2_op.slave.s4 c2_op.slave.s3 c2_op.slave.s2 c2_op.slave.default 
+c2_op.slave.default 0 0 0 0 0 
+c2_op.slave.s2 0 0 0 1 1 
+c2_op.slave.s3 0 0 1 0 1 
+c2_op.slave.s4 0 1 0 0 1 
+c2_op.slave.s1 1 0 0 0 1 
+
+State Machine - |ensc350_system|ubus:bus2|c2_op.master
+Name c2_op.master.m1 c2_op.master.m2 c2_op.master.default 
+c2_op.master.default 0 0 0 
+c2_op.master.m2 0 1 1 
+c2_op.master.m1 1 0 1 
+
+State Machine - |ensc350_system|ubus:bus1|c2_op.op
+Name c2_op.op.stall c2_op.op.write c2_op.op.read c2_op.op.nop 
+c2_op.op.nop 0 0 0 0 
+c2_op.op.read 0 0 1 1 
+c2_op.op.write 0 1 0 1 
+c2_op.op.stall 1 0 0 1 
+
+State Machine - |ensc350_system|ubus:bus1|c2_op.slave
+Name c2_op.slave.s1 c2_op.slave.s4 c2_op.slave.s3 c2_op.slave.s2 c2_op.slave.default 
+c2_op.slave.default 0 0 0 0 0 
+c2_op.slave.s2 0 0 0 1 1 
+c2_op.slave.s3 0 0 1 0 1 
+c2_op.slave.s4 0 1 0 0 1 
+c2_op.slave.s1 1 0 0 0 1 
+
+State Machine - |ensc350_system|ubus:bus1|c2_op.master
+Name c2_op.master.m1 c2_op.master.m2 c2_op.master.default 
+c2_op.master.default 0 0 0 
+c2_op.master.m2 0 1 1 
+c2_op.master.m1 1 0 1 
+
+State Machine - |ensc350_system|counter:my_counter|cstate[3]
+Name cstate[3].count_down cstate[3].count_up cstate[3].idle 
+cstate[3].idle 0 0 0 
+cstate[3].count_up 0 1 1 
+cstate[3].count_down 1 0 1 
+
+State Machine - |ensc350_system|counter:my_counter|cstate[2]
+Name cstate[2].count_down cstate[2].count_up cstate[2].idle 
+cstate[2].idle 0 0 0 
+cstate[2].count_up 0 1 1 
+cstate[2].count_down 1 0 1 
+
+State Machine - |ensc350_system|counter:my_counter|cstate[1]
+Name cstate[1].count_down cstate[1].count_up cstate[1].idle 
+cstate[1].idle 0 0 0 
+cstate[1].count_up 0 1 1 
+cstate[1].count_down 1 0 1 
+
+State Machine - |ensc350_system|counter:my_counter|cstate[0]
+Name cstate[0].count_down cstate[0].count_up cstate[0].idle 
+cstate[0].idle 0 0 0 
+cstate[0].count_up 0 1 1 
+cstate[0].count_down 1 0 1 
+
+State Machine - |ensc350_system|DMA:my_dma|DMA_State
+Name DMA_State.dma_waddr DMA_State.dma_rdata DMA_State.dma_raddr DMA_State.dma_idle 
+DMA_State.dma_idle 0 0 0 0 
+DMA_State.dma_raddr 0 0 1 1 
+DMA_State.dma_rdata 0 1 0 1 
+DMA_State.dma_waddr 1 0 0 1 
+
+State Machine - |ensc350_system|ensc350:uut|Pipe_wb_sel
+Name Pipe_wb_sel.wb_jal Pipe_wb_sel.wb_mem Pipe_wb_sel.wb_mul Pipe_wb_sel.wb_shift Pipe_wb_sel.wb_alu 
+Pipe_wb_sel.wb_alu 0 0 0 0 0 
+Pipe_wb_sel.wb_shift 0 0 0 1 1 
+Pipe_wb_sel.wb_mul 0 0 1 0 1 
+Pipe_wb_sel.wb_mem 0 1 0 0 1 
+Pipe_wb_sel.wb_jal 1 0 0 0 1 

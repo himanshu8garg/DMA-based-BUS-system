@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Apr 05 22:00:33 2016
+Quartus II 64-Bit Version : 15.0.2 Build 153 07/15/2015 SJ Full Version
+Revision Name : ensc350_system
+Top-level Entity Name : ensc350_system
+Family : Cyclone IV E
+Total logic elements : 3,199
+    Total combinational functions : 2,628
+    Dedicated logic registers : 999
+Total registers : 999
+Total pins : 98
+Total virtual pins : 0
+Total memory bits : 393,216
+Embedded Multiplier 9-bit elements : 6
+Total PLLs : 1

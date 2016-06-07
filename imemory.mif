@@ -1,0 +1,119 @@
+-- Imemory.mif
+-- Example Program file for ensc350 computation
+
+  -- op_nop  x"00";	op_addi x"01";	op_addiu x"02";	op_andi   x"03";	op_ori  x"04";	op_slti   x"05";
+  -- op_lui  x"06";	op_j    x"10";	op_beq   x"11";	op_bneq   x"12";	op_lw   x"20";	op_sw     x"21";
+  -- op_add  x"40";	op_sub  x"41";	op_and   x"42";	op_or     x"43";	op_slt  x"44";	op_sll    x"45";
+  -- op_srl  x"46";	op_sra  x"47";	op_mul   x"50";
+
+DEPTH = 4096;                   % The size of memory (number of words we are writing). Remember to change it as we build a more complex code%
+WIDTH = 32;                   % Number of bits per word  %
+ADDRESS_RADIX = HEX;          % The radix for address values %
+DATA_RADIX = HEX;             % The radix for data values %
+CONTENT                       % start of (address : data pairs) %
+BEGIN
+
+---- DMEM phase 3
+----Preloading value to reg
+--0: 02100001; %step value =1%
+--1: 02400014; %count value =14%
+--2: 02201000; %read address =1000%
+--3: 02301050; %write address =1050% 
+---- start DMA
+--5: 21200004; % Desired started read address 0004 with value of 1000 %
+--6: 21100005; % Desired step read address 0005 with value of 1 %
+--7: 21300006; % Desired started write address 0006 with value of 1050 %
+--8: 21100007; % Desired started write address 0007 with value of 1 %
+--9: 21400001; % store count info on address 0001 with value of 14hex=20dec %
+
+-- DEMO A phase 4
+--0: 02700000; % load R7 with 0, will be a counter value to operate %
+--1: 06F000BE; % LOAD APPER BITS 140%
+--3: 01FFBC20; % ADD WITH LOWER BITS 6F40%
+--4: 01200001; % load r2 with 1%
+--6: 41FF2000; % sub 1%
+--8: 12F0FFFE; % jump back to sub %
+--9: 02770001; % increment by 1%
+--b: 21702100; % store incremented at 2100%
+--c: 10200000; % jump to instruction 1%
+
+---- DEMO B phase 4
+--01: 02100000; %load step value =0 R1%
+--02: 02400001; %load count value =1 R4%
+--03: 02201020; %load read address =1020 from counter R2%
+--04: 02302100; %load write address =2100 to LED R3%
+--05: 02700000; % load R7 with 0, will be a counter value to operate %
+--06: 06500262; % load upper bits R5 262% 
+--08: 02555A00; % load lower bits R5 5A00%  
+--09: 01600006; % load R6 with to do jump TO 6 instruction %
+--0A: 21502010; % counter reset %
+--0C: 21002030; % counter start backwards %
+--0E: 20802030; % read from counter to R8%
+--10: 1280FFFD; % jump back to read from mem %
+--11: 02770001; % increment by 1%
+--13: 21701020; % store incremented at 1020%
+--15: 21200004; % Desired started read address 0004 with value of 1020 %
+--16: 21100005; % Desired step read address 0005 with value of 0 %
+--17: 21300006; % Desired started write address 0006 with value of hex=2100 %
+--18: 21100007; % Desired step write address 0007 with value of 0 %
+--19: 21400001; % store count info on address 0001 with value of 1 %
+--1c: 10600000; % ALWAYS BRANCH TO 6%
+
+
+
+---- do DMEM to FFT using DMA phase 5
+--01: 02100000; %load step value =0 R1%
+--02: 02400001; %load count value =1 R4%
+--03: 02201100; %load read address =1100 TO counter R2%
+--04: 02303000; %load write address =3000 to fftcore R3% 
+--05: 0250000F; %step count for dma transfer = F to fft R5%
+--
+--06: 21200004; % Desired started read address 0004 with value of hex=1100 %
+--07: 21400005; % Desired step read address 0005 with value of 1 %
+--08: 21300006; % Desired started write address 0006 with value of hex=3000 %
+--09: 21100007; % Desired step write address 0007 with value of 0 %
+--0a: 21500001; % store count info on address 0001 with value of F %
+----fftcore do computation
+--3F: 21403004; % Say fftcore to compute stuff %
+----read value from fftcore
+--40: 02100000; %load step value =0 R1%
+--41: 02400001; %load count value =1 R4%
+--42: 02603008; %load read address =3008 TO fft core R6%
+--43: 02701200; %load write address =1200 to dmem R7%
+--44: 0280001F; %step count for dma transfer = 1F to fft R8%
+--45: 21600004; % Desired started read address 0004 with value of hex=3008 %
+--46: 21100005; % Desired step read address 0005 with value of 0 %
+--47: 21700006; % Desired started write address 0006 with value of hex=1200 %
+--48: 21400007; % Desired step write address 0007 with value of 1 %
+--49: 21800001; % store count info on address 0001 with value of 1F % 
+--
+--1a1: 02100000; %load step value =0 R1%
+--1a2: 02400001; %load count value =1 R4%
+--1a3: 02201200; %load read address =1200 from counter R2%
+--1a4: 02302100; %load write address =2100 to LED R3%
+--1a5: 0270001f; % load R7 with 1f, will be a counter value to operate %
+--1a6: 065002fa; % load upper bits R5 262% 
+--1a8: 0255f080; % load lower bits R5 5A00%  
+--1a9: 016001a1; % load R6 with to do jump TO a1 instruction %
+--1aA: 21502010; % counter reset %
+--1aC: 21002030; % counter start backwards %
+--1aE: 20802030; % read from counter to R8%
+--1b1: 1280FFFD; % jump back to read from mem %
+--1b2: 0177ffff; % substruct by 1%
+--1b4: 02220001; % incremented address for dma to read%
+--1b6: 21200004; % Desired started read address 0004 with value of 1200 %
+--1b7: 21100005; % Desired step read address 0005 with value of 0 %
+--1b8: 21300006; % Desired started write address 0006 with value of hex=2100 %
+--1b9: 21100007; % Desired step write address 0007 with value of 0 %
+--1bA: 21400001; % store count info on address 0001 with value of 1 %
+--1c0: 1270ffe6; % hopefully jumps to a6%
+--1d0: 10600000; % always branch to 1a1 instruction%
+
+END;
+
+
+
+
+
+
+

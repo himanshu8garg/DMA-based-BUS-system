@@ -1,0 +1,87 @@
+-- Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, the Altera Quartus II License Agreement,
+-- the Altera MegaCore Function License Agreement, or other 
+-- applicable license agreement, including, without limitation, 
+-- that your use is for the sole purpose of programming logic 
+-- devices manufactured by Altera and sold by Altera or its 
+-- authorized distributors.  Please refer to the applicable 
+-- agreement for further details.
+
+-- Quartus II generated Memory Initialization File (.mif)
+
+WIDTH=32;
+DEPTH=6926;
+
+ADDRESS_RADIX=HEX;
+DATA_RADIX=HEX;
+
+CONTENT BEGIN
+	
+
+	000  :	  00001111;
+	001  :   00002222;
+	002  :   00003333;
+	003  :   00004444;
+	004  :   00005555;
+	005  :	  00001111;
+	006  :   00002222;
+	007  :   00003333;
+	008  :   00004444;
+	009  :   00005555;
+	00a  :	  00001111;
+	00b  :   00002222;
+	00c  :   00003333;
+	00d  :   00004444;
+	00e  :   00005555;
+	00f  :	  00001111;
+	010  :   00002222;
+	011  :   00003333;
+	012  :   00004444;
+	013  :   00005555;
+	
+	050  :	  00000000;
+	051  :   00000000;
+	052  :   00000000;
+	053  :   00000000;
+	054  :   00000000;
+	055  :	  00000000;
+	056  :   00000000;
+	057  :   00000000;
+	058  :   00000000;
+	059  :   00000000;
+	05a  :	  00000000;
+	05b  :   00000000;
+	05c  :   00000000;
+	05d  :   00000000;
+	05e  :   00000000;
+	05f  :	  00000000;
+	060  :   00000000;
+	061  :   00000000;
+	062  :   00000000;
+	063  :   00000000;
+	
+	
+	100  :	  7a0a1c78;
+	101  :   78562318;
+	102  :   7732b1b8;
+	103  :   768f8830;
+	104  :   756da540;
+	105  :	  75456878;
+	106  :   74724d80;
+	107  :   73601a30;
+	108  :   6d61fbd0;
+	109  :   6d246630;
+	10a  :   6acd33a8;
+	10b  :   6a7042b0;
+	10c  :   6a4d6100;
+	10d  :   6a0933e0;
+	10e  :   68a72340;
+	10f  :   680ceeb0;
+	
+END;

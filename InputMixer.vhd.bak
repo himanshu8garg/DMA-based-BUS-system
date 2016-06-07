@@ -1,0 +1,131 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
+
+entity InputMixer is
+
+	port 
+	(
+		SW : in std_logic_vector(17 downto 0);
+		KEY : in std_logic_vector(3 downto 0);
+		CLOCK_50 : in std_logic;
+		
+		LEDR : out std_logic_vector(17 downto 0);
+		
+		--AUDIO
+		AUD_XCK : out std_logic;
+		I2C_SCLK : out std_logic;
+		I2C_SDAT : inout std_logic;
+		AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, AUD_ADCDAT : in std_logic;
+		AUD_DACDAT : out std_logic;
+		SamClk : out std_logic 
+	);
+
+end entity;
+
+architecture behave of InputMixer is
+
+		signal myAudioOutL : signed(15 downto 0);
+		signal myAudioOutR : signed(15 downto 0);
+		signal myAudioInL : signed(15 downto 0);
+		signal myAudioInR : signed(15 downto 0);
+		
+		
+		---------FILTERS-------
+
+		-----------------------
+		
+		signal sumR : signed(15 downto 0);
+		signal sumL : signed(15 downto 0);
+		
+
+		signal AuSamClk : std_logic;
+
+	
+	--------------------- VGA ------------------------
+		
+	Signal Pclk, Fclk : std_logic;
+	Signal Xp, Yp, BoxX, BoxY : unsigned(9 downto 0);
+	Signal BoxOn : std_logic;
+	
+	-- Bar selection bits
+	Signal SelBar1 : std_logic;
+	Signal SelBar2 : std_logic;
+	Signal SelBar3 : std_logic;
+	Signal SelBar4 : std_logic;
+	Signal SelBar5 : std_logic;
+	
+	
+	-- Bars
+	Signal BarOn1 : std_logic;
+	Signal BarOn2 : std_logic;
+	Signal BarOn3 : std_logic;
+	Signal BarOn4 : std_logic;
+	Signal BarOn5 : std_logic;
+	
+	-- Bar BTNs
+	Signal BarBTNOn1 : std_logic;
+	Signal BarBTNOn2 : std_logic;
+	Signal BarBTNOn3 : std_logic;
+	Signal BarBTNOn4 : std_logic;
+	Signal BarBTNOn5 : std_logic;
+	
+		
+begin
+
+-------------------------- AUDIO ------------------------
+ASSS: Entity Work.AudioSubSystemStereo 
+port map (
+	 iClk_50 	=> Clock_50,
+	 AudMclk 	=> AUD_XCK,
+	 Init 		=> not Key(3),				-- This is to initialize the Audio codec
+	 I2C_Sclk 	=> I2C_SCLK,					-- CDC Reg initiation serial interface
+	 I2C_Sdat 	=> I2C_SDAT,					-- CDC Reg initiation serial interface
+	 Bclk 		=> AUD_BCLK,					-- CDC audio dout clk
+	 AdcLrc 		=> AUD_ADCLRCK,				-- A/D Channel select signal
+	 DacLrc 		=> AUD_DACLRCK,				-- D/A Channel select signal
+	 AdcDat 		=> AUD_ADCDAT,
+	 DacDat 		=> AUD_DACDAT,
+	 SamClk 		=> AuSamClk, 					-- Sampling CLK
+	 
+	 AudioOutL 	=> myAudioOutL,				-- Outgoing  audio samples
+	 AudioOutR 	=> myAudioOutR,				-- Outgoing  audio samples
+	 AudioInL 	=> myAudioInL,					-- Incomming audio samples
+	 AudioInR 	=> myAudioInR					-- Incomming audio samples
+ );
+ 
+	SamClk <= AuSamClk;
+	
+-------------- Audio LoopBack ---------
+
+	
+	myAudioOutL <= myAudioInL;
+	myAudioOutR <= myAudioInR;
+ 
+	LEDR(15 downto 0) <= std_logic_vector(myAudioInL+myAudioInR);
+	LEDR(17 downto 16) <= "11";
+
+-------------- 8K FILTER --------------  This is only to give you the Idea how 
+---------------------------------------  to feed the audio signal to a filter
+--Filter8K : Entity Work.FilterBox
+--	PORT MAP (
+--			clock => iCLK_50,
+--			sampleClock => AuSamClk,
+--			reset => iKEY(3),
+--			audioInL => myAudioInL,
+--			audioInR => myAudioInR,
+--			audioOutL => FILT8K_outL,
+--			audioOutR => FILT8K_outR,
+--			filterSelect => "000" --4 Khz
+--	);
+--	
+--F8KMul: Entity Work.AmpMultiplier port map (CLOCK => iCLK_50, inputVal => Move_Btn1, outputMultiplier=> FILT8KMul );	
+--	
+--	FILT8KMulResultL <= signed(FILT8K_outL) * FILT8KMul;
+--	FILT8KMulResultR <= signed(FILT8K_outR) * FILT8KMul;
+-------------- END OF 8K ---------------	
+----------------Audio 
+	
+	
+end behave;

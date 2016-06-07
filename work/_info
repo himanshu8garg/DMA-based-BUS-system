@@ -1,0 +1,1108 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/ekuznets/Documents/Assignment3
+Ealu
+Z0 w1457957542
+Z1 DPx9 altera_mf 20 altera_mf_components 0 22 :zX8E]9f?PCk8X:Y[X97:1
+Z2 DPx4 work 15 ensc350_package 0 22 72YHZJ3nA;o3AYWni5<:g2
+Z3 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z5 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z6 dc:/Users/hgarg/Downloads/ass3_evgeny
+Z7 8C:/Users/hgarg/Downloads/ass3_evgeny/ALU.vhdl
+Z8 FC:/Users/hgarg/Downloads/ass3_evgeny/ALU.vhdl
+l0
+L9
+V]cbUG3aM_7hRVGZ=Z2Thf2
+!s100 a1Bgdj1S_NQX<40=SnAfA0
+Z9 OV;C;10.3d;59
+32
+Z10 !s110 1458176252
+!i10b 1
+Z11 !s108 1458176252.893000
+Z12 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass3_evgeny/ALU.vhdl|
+Z13 !s107 C:/Users/hgarg/Downloads/ass3_evgeny/ALU.vhdl|
+!i113 1
+Z14 tExplicit 1
+Abehav
+R1
+R2
+R3
+R4
+R5
+DEx4 work 3 alu 0 22 ]cbUG3aM_7hRVGZ=Z2Thf2
+l23
+L19
+VOem[:6aZTFF7D>01mfgaK0
+!s100 KAX6MKS<Mb`jdgIbR>e;^1
+R9
+32
+R10
+!i10b 1
+R11
+R12
+R13
+!i113 1
+R14
+Eaudiosubsystemstereo
+Z15 w1459998900
+Z16 DPx4 ieee 16 vital_primitives 0 22 G>kiXP8Q9dRClKfK1Zn7j1
+Z17 DPx6 altera 11 dffeas_pack 0 22 UnfbeWGEe]KW7:DTn;?VS1
+Z18 DPx4 ieee 12 vital_timing 0 22 J>EBealN09f8GzldA[z2>3
+Z19 DPx6 altera 28 altera_primitives_components 0 22 ]KYk:P<?aKG^=ZNSeb8Pf3
+R3
+R4
+R5
+Z20 dc:/Users/hgarg/Downloads/ass4_evgeny
+8C:/Users/hgarg/Downloads/ass4_evgeny/AudioSubSystemStereo.vhd
+FC:/Users/hgarg/Downloads/ass4_evgeny/AudioSubSystemStereo.vhd
+l0
+L9
+Vj6MCURWN<5B8aizQZz7<K0
+!s100 A6a`BdY]90L7nl>Pk=Rm;1
+R9
+32
+!s110 1460051529
+!i10b 1
+!s108 1460051529.511000
+!s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/AudioSubSystemStereo.vhd|
+!s107 C:/Users/hgarg/Downloads/ass4_evgeny/AudioSubSystemStereo.vhd|
+!i113 1
+R14
+Eaudrx
+R15
+R3
+R4
+R5
+R20
+Z21 8C:/Users/hgarg/Downloads/ass4_evgeny/AudTxRx.vhd
+Z22 FC:/Users/hgarg/Downloads/ass4_evgeny/AudTxRx.vhd
+l0
+L52
+VL^bW:42h`WaXf=H^Q5aTI3
+!s100 A^f4Zk2E]6HlTYoDYQQW=0
+R9
+32
+Z23 !s110 1460051801
+!i10b 1
+Z24 !s108 1460051800.869000
+Z25 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/AudTxRx.vhd|
+Z26 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/AudTxRx.vhd|
+!i113 1
+R14
+Adataflow
+R3
+R4
+R5
+DEx4 work 5 audrx 0 22 L^bW:42h`WaXf=H^Q5aTI3
+l62
+L59
+VH0R731bYFPb?GSZ8]7VEl1
+!s100 c24J6CG2iG3dRdP1iiIDP3
+R9
+32
+R23
+!i10b 1
+R24
+R25
+R26
+!i113 1
+R14
+Eaudtx
+R15
+R3
+R4
+R5
+R20
+R21
+R22
+l0
+L13
+V_[hlKDX4Kf2_f^_nnGBn73
+!s100 MzC8M32:H8SB<_3N[KI2i0
+R9
+32
+Z27 !s110 1460051800
+!i10b 1
+R24
+R25
+R26
+!i113 1
+R14
+Adataflow
+R3
+R4
+R5
+DEx4 work 5 audtx 0 22 _[hlKDX4Kf2_f^_nnGBn73
+l22
+L19
+Vekb`>foil`E_lT[T27KI<0
+!s100 KdHzaV?nL@1M7Hzo?fC8P2
+R9
+32
+R27
+!i10b 1
+R24
+R25
+R26
+!i113 1
+R14
+Ebutterfly
+Z28 w1459808658
+Z29 DPx4 work 8 fft_pack 0 22 cCMMd[cBjJ;TGF>]`?IW^3
+R3
+R4
+R5
+R20
+Z30 8C:/Users/hgarg/Downloads/ass4_evgeny/butterfly.vhd
+Z31 FC:/Users/hgarg/Downloads/ass4_evgeny/butterfly.vhd
+l0
+L32
+V@FLGBMiTEdC1B8;_3Vg2l1
+!s100 h:1UMYamAOUACQGb<dmI32
+R9
+32
+Z32 !s110 1460051507
+!i10b 1
+Z33 !s108 1460051507.811000
+Z34 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/butterfly.vhd|
+Z35 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/butterfly.vhd|
+!i113 1
+R14
+Abeh
+R29
+R3
+R4
+R5
+DEx4 work 9 butterfly 0 22 @FLGBMiTEdC1B8;_3Vg2l1
+l40
+L37
+Vc9<DNc;2_gdj5PC0;hKmZ0
+!s100 ]o^>GncUG4T^6C<G35hM61
+R9
+32
+R32
+!i10b 1
+R33
+R34
+R35
+!i113 1
+R14
+Eclockgen
+R15
+R3
+R4
+R5
+R20
+Z36 8C:/Users/hgarg/Downloads/ass4_evgeny/ClockGen.vhd
+Z37 FC:/Users/hgarg/Downloads/ass4_evgeny/ClockGen.vhd
+l0
+L5
+VnMVWob5GG`hB;3D`AdJ[n0
+!s100 bQfg>TgBci?<dUWK<DN_G3
+R9
+32
+R23
+!i10b 1
+Z38 !s108 1460051801.228000
+Z39 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/ClockGen.vhd|
+Z40 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/ClockGen.vhd|
+!i113 1
+R14
+Adataflow
+R3
+R4
+R5
+DEx4 work 8 clockgen 0 22 nMVWob5GG`hB;3D`AdJ[n0
+l16
+L11
+V@jbEHHT1LClIVLZL=R3AS1
+!s100 40WBP`Ig0F@BkQ_d_5=S<3
+R9
+32
+R23
+!i10b 1
+R38
+R39
+R40
+!i113 1
+R14
+Pcodec
+R15
+R20
+Z41 8C:/Users/hgarg/Downloads/ass4_evgeny/I2CTx.vhd
+Z42 FC:/Users/hgarg/Downloads/ass4_evgeny/I2CTx.vhd
+l0
+L1
+V>Fh<<HEbMTe@kThdMR[KG3
+!s100 c_GTWebM5;_J?cKZR1YYZ2
+R9
+32
+R23
+!i10b 1
+Z43 !s108 1460051801.571000
+Z44 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/I2CTx.vhd|
+Z45 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/I2CTx.vhd|
+!i113 1
+R14
+Ecodecinit
+R15
+R3
+R4
+R5
+R20
+8C:/Users/hgarg/Downloads/ass4_evgeny/CodecInit.vhd
+FC:/Users/hgarg/Downloads/ass4_evgeny/CodecInit.vhd
+l0
+L13
+VS;6gb]LSO^z<JMzmGlcfV1
+!s100 XJL29fBlI]@fcdbg_Y0;o2
+R9
+32
+!s110 1460051758
+!i10b 1
+!s108 1460051758.482000
+!s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/CodecInit.vhd|
+!s107 C:/Users/hgarg/Downloads/ass4_evgeny/CodecInit.vhd|
+!i113 1
+R14
+Ecounter
+Z46 w1459638198
+R3
+R5
+R4
+R20
+Z47 8C:/Users/hgarg/Downloads/ass4_evgeny/counter.vhd
+Z48 FC:/Users/hgarg/Downloads/ass4_evgeny/counter.vhd
+l0
+L29
+V^Q;fLS_OhUjVZ5]PhFL7Z0
+!s100 nWII]`Q=DbJdZ>>_KN5QC2
+R9
+32
+Z49 !s110 1460046934
+!i10b 1
+Z50 !s108 1460046934.677000
+Z51 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/counter.vhd|
+Z52 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/counter.vhd|
+!i113 1
+R14
+Abeh
+R3
+R5
+R4
+DEx4 work 7 counter 0 22 ^Q;fLS_OhUjVZ5]PhFL7Z0
+l50
+L39
+VZSzok_nZhmncBlF>U1GC91
+!s100 FC>EO^5fh:GJ>aO09=>8E0
+R9
+32
+R49
+!i10b 1
+R50
+R51
+R52
+!i113 1
+R14
+Edecodeop
+Z53 w1458419876
+Z54 DPx4 work 15 ensc350_package 0 22 =S^4mf71XUo2h9d3jadP71
+R3
+R4
+R5
+R20
+Z55 8C:/Users/hgarg/Downloads/ass4_evgeny/decodeop.vhd
+Z56 FC:/Users/hgarg/Downloads/ass4_evgeny/decodeop.vhd
+l0
+L7
+V3gA>X161G`;c5mMEGRILO1
+!s100 1ZgWd?n^AS2^GDIJX3aT00
+R9
+32
+Z57 !s110 1460051797
+!i10b 1
+Z58 !s108 1460051797.671000
+Z59 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/decodeop.vhd|
+Z60 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/decodeop.vhd|
+!i113 1
+R14
+Abehavioral
+R54
+R3
+R4
+R5
+DEx4 work 8 decodeop 0 22 3gA>X161G`;c5mMEGRILO1
+l25
+L20
+VMZo@b=jEAcHI`A1SQZ<[W3
+!s100 [H0HX8cH51bCeJBj<l]ed3
+R9
+32
+R57
+!i10b 1
+R58
+R59
+R60
+!i113 1
+R14
+Edma
+Z61 w1460046661
+R54
+R3
+R4
+R5
+R20
+Z62 8C:/Users/hgarg/Downloads/ass4_evgeny/dma.vhdl
+Z63 FC:/Users/hgarg/Downloads/ass4_evgeny/dma.vhdl
+l0
+L7
+VB<_GNQ<>VjB[P]?4^Nm:l1
+!s100 7D2K[Sjl;;Jc7mg]_WG072
+R9
+32
+R27
+!i10b 1
+Z64 !s108 1460051800.167000
+Z65 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/dma.vhdl|
+Z66 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/dma.vhdl|
+!i113 1
+R14
+Abeh
+R54
+R3
+R4
+R5
+DEx4 work 3 dma 0 22 B<_GNQ<>VjB[P]?4^Nm:l1
+l37
+L26
+VkG98dbAf29lBI@:iUD`]a2
+!s100 oHUimWB^1X6]C;lW8^blo0
+R9
+32
+R27
+!i10b 1
+R64
+R65
+R66
+!i113 1
+R14
+Edmemlogic
+Z67 w1457678424
+R1
+R2
+R3
+R4
+R5
+R6
+Z68 8C:/Users/hgarg/Downloads/ass3_evgeny/Dmemlogic.vhdl
+Z69 FC:/Users/hgarg/Downloads/ass3_evgeny/Dmemlogic.vhdl
+l0
+L8
+VHD8loH:6HnUH^aFI72KG61
+!s100 U;O6R=BoG;1MD<Lh:4L@73
+R9
+32
+Z70 !s110 1458176253
+!i10b 1
+Z71 !s108 1458176253.277000
+Z72 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass3_evgeny/Dmemlogic.vhdl|
+Z73 !s107 C:/Users/hgarg/Downloads/ass3_evgeny/Dmemlogic.vhdl|
+!i113 1
+R14
+Abehav
+R1
+R2
+R3
+R4
+R5
+DEx4 work 9 dmemlogic 0 22 HD8loH:6HnUH^aFI72KG61
+l31
+L23
+V_i2c_T<BFTTT@ZbU]i>OY0
+!s100 <G68FZoKNi18E?bJZj:9=2
+R9
+32
+R70
+!i10b 1
+R71
+R72
+R73
+!i113 1
+R14
+Ee
+Z74 w1458612068
+R54
+R1
+R3
+R4
+R5
+R20
+Z75 8C:/Users/hgarg/Downloads/ass4_evgeny/tb_ensc350.vhd
+Z76 FC:/Users/hgarg/Downloads/ass4_evgeny/tb_ensc350.vhd
+l0
+L10
+V9Z[jHbk_>S=;ZTX2TV:?31
+!s100 zEVEl@AM0j:lOKgei][Bn2
+R9
+32
+R57
+!i10b 1
+Z77 !s108 1460051797.281000
+Z78 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/tb_ensc350.vhd|
+Z79 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/tb_ensc350.vhd|
+!i113 1
+R14
+Atb
+R54
+R1
+R3
+R4
+R5
+DEx4 work 1 e 0 22 9Z[jHbk_>S=;ZTX2TV:?31
+l35
+L12
+V`MlKXI9A@gT1N:m]>Y^8S1
+!s100 >fF53O18zi?LLO=8A]LDf1
+R9
+32
+R57
+!i10b 1
+R77
+R78
+R79
+!i113 1
+R14
+Eensc350
+Z80 w1459733924
+R3
+R54
+R4
+R5
+R20
+Z81 8C:/Users/hgarg/Downloads/ass4_evgeny/ensc350.vhd
+Z82 FC:/Users/hgarg/Downloads/ass4_evgeny/ensc350.vhd
+l0
+L6
+V<P0RG:<7SR@O2P2AjZMfA2
+!s100 VHmC_Komo<]Y@Nz53QAZ51
+R9
+32
+Z83 !s110 1460051799
+!i10b 1
+Z84 !s108 1460051799.793000
+Z85 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/ensc350.vhd|
+Z86 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/ensc350.vhd|
+!i113 1
+R14
+Astruct
+R3
+R54
+R4
+R5
+DEx4 work 7 ensc350 0 22 <P0RG:<7SR@O2P2AjZMfA2
+l95
+L16
+VBjz6g@8I7onA5ME;@Qfa<1
+!s100 0@Ef;Jk<on0JoML_[?FgF2
+R9
+32
+R83
+!i10b 1
+R84
+R85
+R86
+!i113 1
+R14
+Abehav
+R1
+R2
+R3
+R4
+R5
+DEx4 work 7 ensc350 0 22 0Xf_L`BFn@mJ@03KVRc?d2
+l123
+L21
+VfGWTb]BVMiRUTcXez4Z]@0
+!s100 =z0;;kH5o^EkIgV]WS]4m1
+R9
+32
+Z87 !s110 1458176254
+!i10b 1
+!s108 1458176254.398000
+!s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass3_evgeny/Assignment3.vhdl|
+!s107 C:/Users/hgarg/Downloads/ass3_evgeny/Assignment3.vhdl|
+!i113 1
+R14
+R6
+FC:/Users/hgarg/Downloads/ass3_evgeny/Assignment3.vhdl
+w1458113116
+8C:/Users/hgarg/Downloads/ass3_evgeny/Assignment3.vhdl
+Pensc350_package
+R3
+R4
+R5
+w1458611980
+R20
+8C:/Users/hgarg/Downloads/ass4_evgeny/ensc350_package.vhd
+FC:/Users/hgarg/Downloads/ass4_evgeny/ensc350_package.vhd
+l0
+L7
+V=S^4mf71XUo2h9d3jadP71
+!s100 9V7EijP[eYd5NkzND@C>81
+R9
+32
+R57
+!i10b 1
+!s108 1460051797.218000
+!s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/ensc350_package.vhd|
+!s107 C:/Users/hgarg/Downloads/ass4_evgeny/ensc350_package.vhd|
+!i113 1
+R14
+Eensc350_system
+w1460051421
+R1
+R54
+R3
+R4
+R5
+R20
+Z88 8C:/Users/hgarg/Downloads/ass4_evgeny/ensc350_system.vhdl
+Z89 FC:/Users/hgarg/Downloads/ass4_evgeny/ensc350_system.vhdl
+l0
+L9
+VTD9eLgam=>>lQ_PI^XB3l1
+!s100 [lZfQf2Fg3WX>5RBdX@=T2
+R9
+32
+Z90 !s110 1460051508
+!i10b 1
+!s108 1460051508.513000
+Z91 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/ensc350_system.vhdl|
+Z92 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/ensc350_system.vhdl|
+!i113 1
+R14
+Astructural
+R1
+R54
+R3
+R4
+R5
+DEx4 work 14 ensc350_system 0 22 TD9eLgam=>>lQ_PI^XB3l1
+l219
+L19
+VH84XOVmmKBPF`jbzVDlk92
+!s100 hZZfaz]B;zYNfR?m`5gfA1
+R9
+32
+!s110 1460046933
+!i10b 1
+!s108 1460046933.819000
+R91
+R92
+!i113 1
+R14
+w1460046832
+Efft_core
+Z93 w1459903100
+R29
+R4
+R5
+R20
+Z94 8C:/Users/hgarg/Downloads/ass4_evgeny/fft_core.vhd
+Z95 FC:/Users/hgarg/Downloads/ass4_evgeny/fft_core.vhd
+l0
+L5
+VAPLmZCnZk[HkEM>ENEjh`0
+!s100 Bj?P`H:jkbf_fd]^85?Zl0
+R9
+32
+R90
+!i10b 1
+Z96 !s108 1460051508.170000
+Z97 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/fft_core.vhd|
+Z98 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/fft_core.vhd|
+!i113 1
+R14
+Astruct
+R29
+R4
+R5
+DEx4 work 8 fft_core 0 22 APLmZCnZk[HkEM>ENEjh`0
+l34
+L13
+VF@QKNV:c@02blH:WF=BGR3
+!s100 z:Ed9ZOUJ^fgD3o7aN:?S2
+R9
+32
+R90
+!i10b 1
+R96
+R97
+R98
+!i113 1
+R14
+Pfft_pack
+R4
+R5
+R28
+R20
+R30
+R31
+l0
+L16
+VcCMMd[cBjJ;TGF>]`?IW^3
+!s100 X9^a4>IkBV]KJeF;g;U0W0
+R9
+32
+R32
+!i10b 1
+R33
+R34
+R35
+!i113 1
+R14
+Efull_alu
+R53
+R54
+R3
+R4
+R5
+R20
+Z99 8C:/Users/hgarg/Downloads/ass4_evgeny/full_alu.vhd
+Z100 FC:/Users/hgarg/Downloads/ass4_evgeny/full_alu.vhd
+l0
+L7
+Vn3HScliOmTXaQJQ2[D]gO2
+!s100 Ojkj?;GdXZZ@PcG20EPD;3
+R9
+32
+Z101 !s110 1460051798
+!i10b 1
+Z102 !s108 1460051798.030000
+Z103 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/full_alu.vhd|
+Z104 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/full_alu.vhd|
+!i113 1
+R14
+Abehavioral
+R54
+R3
+R4
+R5
+DEx4 work 8 full_alu 0 22 n3HScliOmTXaQJQ2[D]gO2
+l21
+L16
+VgGD94X>=HKkkFQR;m>B_a3
+!s100 h?o8=dJP]M;5AK@e3Dh=^3
+R9
+32
+R101
+!i10b 1
+R102
+R103
+R104
+!i113 1
+R14
+Ei2ctx
+R15
+R16
+R17
+R18
+R19
+DPx6 altera 21 altera_syn_attributes 0 22 O>O9onXe2VZmD=ml3^O6Y0
+R4
+R5
+DPx4 work 5 codec 0 22 >Fh<<HEbMTe@kThdMR[KG3
+R20
+R41
+R42
+l0
+L16
+Ve1=^B<860K5HQo1jmZ7k;3
+!s100 _iPGVGcU>:LK629];9ZUY3
+R9
+32
+R23
+!i10b 1
+R43
+R44
+R45
+!i113 1
+R14
+Eidecode
+Z105 w1457950892
+R1
+R2
+R3
+R4
+R5
+R6
+Z106 8C:/Users/hgarg/Downloads/ass3_evgeny/InDecode.vhdl
+Z107 FC:/Users/hgarg/Downloads/ass3_evgeny/InDecode.vhdl
+l0
+L9
+ViIMiGF]UJY9:7mQT=j^Bn3
+!s100 LZAo3UaA4LUeGEn7al1ii2
+R9
+32
+R10
+!i10b 1
+Z108 !s108 1458176252.510000
+Z109 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass3_evgeny/InDecode.vhdl|
+Z110 !s107 C:/Users/hgarg/Downloads/ass3_evgeny/InDecode.vhdl|
+!i113 1
+R14
+Abehav
+R1
+R2
+R3
+R4
+R5
+Z111 DEx4 work 7 idecode 0 22 iIMiGF]UJY9:7mQT=j^Bn3
+l26
+L25
+V8B;hLi_n5S4aR1eRoe];Q1
+!s100 UaIXWgIXV>]jcUIeSX^gM0
+R9
+32
+R10
+!i10b 1
+R108
+R109
+R110
+!i113 1
+R14
+Aidecodelogic
+R1
+R2
+R3
+R4
+R5
+R111
+l26
+L25
+V[8h3Nm5ofclkF6A5KoKnV3
+!s100 PfjIT_YO@K96KCnd:oGb;0
+R9
+32
+!s110 1457493726
+!i10b 1
+!s108 1457493726.388000
+R109
+R110
+!i113 1
+R14
+w1457491242
+Z112 dC:/Users/hgarg/Downloads/ass3_evgeny
+Emem_control
+Z113 w1458422744
+R54
+R3
+R4
+R5
+R20
+Z114 8C:/Users/hgarg/Downloads/ass4_evgeny/mem_control.vhd
+Z115 FC:/Users/hgarg/Downloads/ass4_evgeny/mem_control.vhd
+l0
+L7
+VSdgdSZ_F?@jYnCY0khBYZ0
+!s100 d`dd0XE:GeWn]JjU3fRoE1
+R9
+32
+R101
+!i10b 1
+Z116 !s108 1460051798.389000
+Z117 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/mem_control.vhd|
+Z118 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/mem_control.vhd|
+!i113 1
+R14
+Abehavioral
+R54
+R3
+R4
+R5
+DEx4 work 11 mem_control 0 22 SdgdSZ_F?@jYnCY0khBYZ0
+l25
+L21
+V9n;oC@L:l<LYgh9zI`UAD1
+!s100 hA2@`ieR67hPdV6TB>=WD3
+R9
+32
+R101
+!i10b 1
+R116
+R117
+R118
+!i113 1
+R14
+Emultiplier
+Z119 w1458421274
+R54
+R3
+R4
+R5
+R20
+Z120 8C:/Users/hgarg/Downloads/ass4_evgeny/multiplier.vhd
+Z121 FC:/Users/hgarg/Downloads/ass4_evgeny/multiplier.vhd
+l0
+L6
+VQaPV:BHPKo0NzYLTCZ<UQ2
+!s100 gOoNI`PGPeh@ZY_h3iT4i0
+R9
+32
+R83
+!i10b 1
+Z122 !s108 1460051799.091000
+Z123 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/multiplier.vhd|
+Z124 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/multiplier.vhd|
+!i113 1
+R14
+Abehavioral
+R54
+R3
+R4
+R5
+DEx4 work 10 multiplier 0 22 QaPV:BHPKo0NzYLTCZ<UQ2
+l15
+L12
+VkW19LbnJb35GKF_1ik^Yc2
+!s100 m0Az_z2`1[k6?88VX?BBQ3
+R9
+32
+R83
+!i10b 1
+R122
+R123
+R124
+!i113 1
+R14
+Abehav
+R1
+R2
+R3
+R4
+R5
+DEx4 work 10 multiplier 0 22 PV8d@;KYzEmGcFni<V6MM2
+l21
+L18
+V^WCdA85<^=E^hJP7m82h32
+!s100 VQizhKN2N9VM:mnY?k7hc0
+R9
+32
+!s110 1457320282
+!i10b 1
+!s108 1457320282.480000
+!s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass3_evgeny/multilplier.vhdl|
+!s107 C:/Users/hgarg/Downloads/ass3_evgeny/multilplier.vhdl|
+!i113 1
+R14
+R112
+FC:/Users/hgarg/Downloads/ass3_evgeny/multilplier.vhdl
+w1457239268
+8C:/Users/hgarg/Downloads/ass3_evgeny/multilplier.vhdl
+Epc
+Z125 w1458096134
+R1
+R2
+R3
+R4
+R5
+R6
+Z126 8C:/Users/hgarg/Downloads/ass3_evgeny/Prog_counter.vhdl
+Z127 FC:/Users/hgarg/Downloads/ass3_evgeny/Prog_counter.vhdl
+l0
+L9
+VOEN>BELOGNXjC6??Pe5Mc0
+!s100 1GT<>mgV8J6L^XjXiDP_W3
+R9
+32
+R87
+!i10b 1
+Z128 !s108 1458176254.013000
+Z129 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass3_evgeny/Prog_counter.vhdl|
+Z130 !s107 C:/Users/hgarg/Downloads/ass3_evgeny/Prog_counter.vhdl|
+!i113 1
+R14
+Abehavioral
+R1
+R2
+R3
+R4
+R5
+DEx4 work 2 pc 0 22 OEN>BELOGNXjC6??Pe5Mc0
+l23
+L19
+VL:bl[B2_=g0QPD7aa`OPG2
+!s100 :YZFLaknR=NIVK[T41L4f1
+R9
+32
+R87
+!i10b 1
+R128
+R129
+R130
+!i113 1
+R14
+Epc_calc
+R53
+R54
+R3
+R4
+R5
+R20
+Z131 8C:/Users/hgarg/Downloads/ass4_evgeny/pc_calc.vhd
+Z132 FC:/Users/hgarg/Downloads/ass4_evgeny/pc_calc.vhd
+l0
+L6
+V0cN3iz2WJ<mOo5AL@ELcX0
+!s100 =@?mPFEfgRQD6h`TckDPX0
+R9
+32
+R83
+!i10b 1
+Z133 !s108 1460051799.449000
+Z134 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/pc_calc.vhd|
+Z135 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/pc_calc.vhd|
+!i113 1
+R14
+Abehavioral
+R54
+R3
+R4
+R5
+DEx4 work 7 pc_calc 0 22 0cN3iz2WJ<mOo5AL@ELcX0
+l18
+L14
+VUGE7;T5g9YdO82[]S_EGX1
+!s100 3Oz:DV:nP0EBV^Ol4EXPY3
+R9
+32
+R83
+!i10b 1
+R133
+R134
+R135
+!i113 1
+R14
+Erfile
+R53
+Z136 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+R4
+R5
+R20
+Z137 8C:/Users/hgarg/Downloads/ass4_evgeny/rfile.vhd
+Z138 FC:/Users/hgarg/Downloads/ass4_evgeny/rfile.vhd
+l0
+L5
+VnI;_MWILMPz2T3<SWS4<61
+!s100 b4mIVUog]X01?^C2=zSPH3
+R9
+32
+R101
+!i10b 1
+Z139 !s108 1460051798.747000
+Z140 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/rfile.vhd|
+Z141 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/rfile.vhd|
+!i113 1
+R14
+Abehavioral
+R136
+R4
+R5
+DEx4 work 5 rfile 0 22 nI;_MWILMPz2T3<SWS4<61
+l22
+L16
+VcbJDA:7C>gB1EGL:>WE6k1
+!s100 5h3SA?nkG1Jn<3O[V]T^U0
+R9
+32
+R101
+!i10b 1
+R139
+R140
+R141
+!i113 1
+R14
+Esegment7_conv
+Z142 w1457960642
+R4
+R5
+R20
+Z143 8C:/Users/hgarg/Downloads/ass4_evgeny/segment7_conv.vhd
+Z144 FC:/Users/hgarg/Downloads/ass4_evgeny/segment7_conv.vhd
+l0
+L4
+V5?Md=I_eNYTQ?NdloZKUF3
+!s100 ]D=MoUW8O9Xzo9iBjKngL1
+R9
+32
+R27
+!i10b 1
+Z145 !s108 1460051800.526000
+Z146 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/segment7_conv.vhd|
+Z147 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/segment7_conv.vhd|
+!i113 1
+R14
+Abehavioral
+R4
+R5
+DEx4 work 13 segment7_conv 0 22 5?Md=I_eNYTQ?NdloZKUF3
+l12
+L10
+V@72]VKeFG9ndZ=BT6]L7P1
+!s100 OA8<<IYJY2bzc8j=Re3dC0
+R9
+32
+R27
+!i10b 1
+R145
+R146
+R147
+!i113 1
+R14
+Eubus
+Z148 w1459396900
+R3
+R5
+R4
+R20
+Z149 8C:/Users/hgarg/Downloads/ass4_evgeny/ubus.vhd
+Z150 FC:/Users/hgarg/Downloads/ass4_evgeny/ubus.vhd
+l0
+L32
+VMN>G1o5WeJ=;:ZJ]7SFU52
+!s100 [2o3h4kAAoV[]WF<L>cVK2
+R9
+32
+R32
+!i10b 1
+Z151 !s108 1460051507.436000
+Z152 !s90 -reportprogress|300|C:/Users/hgarg/Downloads/ass4_evgeny/ubus.vhd|
+Z153 !s107 C:/Users/hgarg/Downloads/ass4_evgeny/ubus.vhd|
+!i113 1
+R14
+Astruct
+R3
+R5
+R4
+DEx4 work 4 ubus 0 22 MN>G1o5WeJ=;:ZJ]7SFU52
+l107
+L87
+VWbL?cIAzTSk1nQkn^1Y[k2
+!s100 CbU=E27>n_MmP_aBV3D]=1
+R9
+32
+R32
+!i10b 1
+R151
+R152
+R153
+!i113 1
+R14

@@ -1,0 +1,469 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.ensc350_package.all;
+
+LIBRARY altera_mf;
+USE altera_mf.altera_mf_components.all;
+
+
+entity ensc350_system is 
+port (
+	CLOCK_50 : in std_logic;
+	KEY : in std_logic_vector(3 downto 0);
+	SW : in std_logic_vector(15 downto 0);
+	LEDR : out std_logic_vector(15 downto 0);
+	LEDG : out std_logic_vector(7 downto 0);
+	HEX0,HEX1,HEX2,HEX3,HEX4,HEX5,HEX6,HEX7 : out std_logic_vector(6 downto 0);
+	
+	  --AUDIO 
+	 AUD_XCK : out std_logic;
+	 I2C_SCLK : out std_logic;
+	 I2C_SDAT : inout std_logic;
+	 AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, AUD_ADCDAT : in std_logic;
+	 AUD_DACDAT : out std_logic;
+	 SamClk : out std_logic 
+);
+	 
+end ensc350_system;
+
+architecture structural of ensc350_system is 
+
+component ensc350 
+		port (
+			clk,resetn : in Std_logic;
+			iaddr_out : out Std_logic_vector(iaddr_size-1 downto 0);
+			idata_in : in Std_logic_vector(instr_size-1 downto 0); -- input instruction
+			daddr_out : out Std_logic_vector(daddr_size-1 downto 0);
+			dmem_read,dmem_write : out std_logic;
+			ddata_in : in Std_logic_vector(data_size-1 downto 0); -- data input
+			ddata_out : out Std_logic_vector(data_size-1 downto 0)
+		); 
+	end component; 
+
+component fft_core is
+   		Port (  
+			clk, resetn  : in  std_logic;
+        	addr_in      : in  std_logic_vector(7 downto 0); 
+			mr,mw        : in  std_logic;
+		  	data_in      : in  std_logic_vector(31 downto 0);
+         data_out     : out std_logic_vector(31 downto 0) );
+ 	end component;
+-- Signals for fft_core
+	signal addr_in_fft: std_logic_vector(15 downto 0); 
+	signal mr_fft,mw_fft        :  std_logic;
+	signal data_in_fft     :  std_logic_vector(31 downto 0);
+	signal data_out_fft     :  std_logic_vector(31 downto 0);
+	signal clk_out_pll :  std_logic_vector(4 downto 0);
+	signal clk_fft :  std_logic;
+---------------------------------------------------------
+COMPONENT altpll 
+GENERIC (bandwidth_type:STRING;clk0_divide_by: NATURAL;clk0_duty_cycle: NATURAL;clk0_multiply_by:NATURAL;
+clk0_phase_shift:STRING;compensate_clock:STRING;inclk0_input_frequency:NATURAL;intended_device_family:STRING;
+lpm_hint:STRING;lpm_type:STRING;operation_mode:STRING;pll_type:STRING;port_activeclock:STRING;port_areset:STRING;
+port_clkbad0:STRING;port_clkbad1:STRING;port_clkloss:STRING;port_clkswitch:STRING;port_configupdate:STRING;
+port_fbin:STRING;port_inclk0:STRING;port_inclk1:STRING;port_locked:STRING;port_pfdena:STRING;
+port_phasecounterselect:STRING;port_phasedone:STRING;port_phasestep:STRING;port_phaseupdown:STRING;
+port_pllena:STRING;port_scanaclr:STRING;port_scanclk:STRING;
+port_scanclkena: STRING;port_scandata:STRING;port_scandataout:STRING;port_scandone:STRING;
+port_scanread:STRING;port_scanwrite:STRING;port_clk0:STRING;port_clk1:STRING;port_clk2:STRING;port_clk3:STRING;
+port_clk4:STRING;port_clk5:STRING;port_clkena0: STRING;port_clkena1:STRING;port_clkena2:STRING;
+port_clkena3:STRING;port_clkena4:STRING;port_clkena5:STRING;
+port_extclk0:STRING;port_extclk1:STRING;port_extclk2:STRING;port_extclk3:STRING;
+  self_reset_on_loss_lock : STRING;width_clock: NATURAL 
+);
+ PORT (  areset  : IN STD_LOGIC ;
+   inclk  : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
+   clk  : OUT STD_LOGIC_VECTOR (4 DOWNTO 0);
+   locked  : OUT STD_LOGIC);
+END COMPONENT;
+
+	component  ubus is    
+    		generic(addr_width : integer := 16; data_width : integer := 32;
+            	 s1_start : Std_logic_vector := X"40001000";
+           	 s1_end   : Std_logic_vector := X"40002000";
+           	 s2_start : Std_logic_vector := X"50000000";
+           	 s2_end   : Std_logic_vector := X"f0000000";
+            	 s3_start : Std_logic_vector := X"00000000";
+           	 s3_end   : Std_logic_vector := X"00000000";
+           	 s4_start : Std_logic_vector := X"00000000";
+           	 s4_end   : Std_logic_vector := X"00000000");
+      
+  	  port ( clk,reset           : in Std_logic;
+           -- M1 port
+           M1_BUSY,M1_MR,M1_MW : in   Std_logic;
+           M1_NREADY           : out  Std_logic;
+           M1_ADDRBUS          : in   Std_logic_vector(addr_width-1 downto 0);
+           M1_RDATABUS         : out  Std_logic_vector(data_width-1 downto 0);
+           M1_WDATABUS         : in   Std_logic_vector(data_width-1 downto 0);
+
+           -- M2 port
+           M2_BUSY,M2_MR,M2_MW : in   Std_logic;
+           M2_NREADY           : out  Std_logic;
+           M2_ADDRBUS          : in   Std_logic_vector(addr_width-1 downto 0);
+           M2_RDATABUS         : out  Std_logic_vector(data_width-1 downto 0);
+           M2_WDATABUS         : in   Std_logic_vector(data_width-1 downto 0);
+             
+           -- S1 port
+           S1_BUSY,S1_MR,S1_MW : out  Std_logic;               
+           S1_NREADY           : in   Std_logic;
+           S1_ADDRBUS          : out  Std_logic_vector(addr_width-1 downto 0);
+           S1_RDATABUS         : in   Std_logic_vector(data_width-1 downto 0);
+           S1_WDATABUS         : out  Std_logic_vector(data_width-1 downto 0);
+  
+           -- S2 port
+           S2_BUSY,S2_MR,S2_MW : out  Std_logic;
+           S2_NREADY           : in   Std_logic;
+           S2_ADDRBUS          : out  Std_logic_vector(addr_width-1 downto 0);
+           S2_RDATABUS         : in   Std_logic_vector(data_width-1 downto 0);
+           S2_WDATABUS         : out  Std_logic_vector(data_width-1 downto 0);
+    
+           -- S3 port
+           S3_BUSY,S3_MR,S3_MW : out  Std_logic;
+           S3_NREADY           : in   Std_logic;
+           S3_ADDRBUS          : out  Std_logic_vector(addr_width-1 downto 0);
+           S3_RDATABUS         : in   Std_logic_vector(data_width-1 downto 0);
+           S3_WDATABUS         : out  Std_logic_vector(data_width-1 downto 0);
+  
+           -- S4 port
+           S4_BUSY,S4_MR,S4_MW : out  Std_logic;
+           S4_NREADY           : in   Std_logic;
+           S4_ADDRBUS          : out  Std_logic_vector(addr_width-1 downto 0);
+           S4_RDATABUS         : in   Std_logic_vector(data_width-1 downto 0);
+           S4_WDATABUS         : out  Std_logic_vector(data_width-1 downto 0) );
+  end COMPONENT;
+
+
+
+component DMA 
+generic ( signal_active : std_logic := '0'; size : positive := 32; addr_size : positive := 16);
+Port ( -- System Control Signals
+	CLK,reset : in Std_logic;
+	-- M1 port
+	M2_BUSY,M2_MR,M2_MW : out Std_logic;
+	M2_NREADY : in Std_logic;
+	M2_ADDRBUS : out Std_logic_vector(addr_size-1 downto 0);
+	M2_RDATABUS : in Std_logic_vector(size-1 downto 0);
+	M2_WDATABUS : out Std_logic_vector(size-1 downto 0);
+	-- Slave (Control) port
+	S4_BUSY,S4_MR,S4_MW : in Std_logic; 
+	S4_NREADY : out Std_logic;
+	S4_ADDRBUS : in Std_logic_vector(3 downto 0);
+	S4_RDATABUS : out Std_logic_vector(size-1 downto 0);
+	S4_WDATABUS : in Std_logic_vector(size-1 downto 0)
+); 
+end component;
+
+
+COMPONENT counter
+  generic ( 
+		 addr_size  : integer  := 16; 
+	    data_size : integer := 32;
+       num_counters : integer := 4; 
+	    signal_active : std_logic := '0'
+);
+  port (  clk,resetn :   in  std_logic; 
+          rdn,wrn    :   in  std_logic;
+          address    :   in  std_logic_vector(15 downto 0);
+          data_in    :   in  std_logic_vector(31 downto 0);
+          data_out   :   out std_logic_vector(31 downto 0) ); 
+
+end COMPONENT;
+---------------------------------------------------------
+--signals for counter
+
+ signal counter_rdn_sig,counter_wrn_sig : std_logic;
+ signal counter_address_sig		: std_logic_vector(15 downto 0);
+ signal counter_data_in_sig		: std_logic_vector(31 downto 0);
+ signal counter_data_out_sig		: std_logic_vector(31 downto 0); 
+---------------------------------------------------------
+component segment7_conv
+	port( 
+	  D: in std_logic_vector(3 downto 0);
+	  O: out std_logic_vector(6 downto 0));
+	end component; 
+	 
+ signal clk,clkn,resetn, reset_pll    :  std_logic;
+ signal clk_pll_input          :  std_logic_vector(1 downto 0);
+ signal iaddr_out          :  std_logic_vector(iaddr_size-1 downto 0);
+ signal daddr_out          :  std_logic_vector(daddr_size-1 downto 0);
+ signal idata_in           :  std_logic_vector(instr_size-1 downto 0);
+ signal ddata_in,ddata_out :  std_logic_vector(data_size-1 downto 0);
+ signal mem_value: std_logic_vector(15 downto 0);
+ signal D_wen,D_ren,I_wen,I_ren,S1_wen,S1_ren,S2_ren,S2_wen,S3_ren,S3_wen,S4_ren,S4_wen : Std_logic;
+ signal D_bitwen           : std_logic_vector(data_size-1 downto 0);               
+ signal I_bitwen           : std_logic_vector(instr_size-1 downto 0);
+ signal SW_in :  Std_logic_vector(15 downto 0);
+ signal output :  Std_logic_vector(31 downto 0);
+ signal softwareCount :  Std_logic_vector(31 downto 0);
+ signal softwareCountNext :  Std_logic_vector(31 downto 0);
+--signals for bus1
+---------------------------------------------------------------------------------------------------------------------------
+ signal M1_BUSY_SIG,M1_NREADY_SIG,M2_NREADY_SIG,S1_BUSY_SIG,S1_NREADY_SIG,S2_BUSY_SIG,S3_NREADY_SIG,S3_BUSY_SIG,S4_NREADY_SIG : std_logic;
+ signal M1_ADDRBUS_SIG: std_logic_vector(daddr_size-1 downto 0);
+ signal M1_RDATABUS_SIG,M1_WDATABUS_SIG: std_logic_vector(data_size-1 downto 0);
+
+ signal M2_BUSY_SIG, M2_MR_SIG, M2_MW_SIG :std_logic; 
+ signal M2_ADDRBUS_SIG : Std_logic_vector(daddr_size-1 downto 0);
+ signal M2_RDATABUS_SIG,M2_WDATABUS_SIG : Std_logic_vector(data_size-1 downto 0);
+
+
+ signal S1_ADDRBUS_SIG,S2_ADDRBUS_SIG,S3_ADDRBUS_SIG: std_logic_vector(daddr_size-1 downto 0);
+
+ signal S4_ADDRBUS_SIG: std_logic_vector(15 downto 0);
+
+ signal S1_ddata_in,S2_ddata_in,S3_ddata_in,S4_ddata_in     :  Std_logic_vector(data_size-1 downto 0); --added Slave signals in 
+ signal S1_ddata_out,S2_ddata_out,S3_ddata_out,S4_ddata_out :  Std_logic_vector(data_size-1 downto 0); --added Slave signals out
+ signal S4_BUSY_SIG,S4_MR_SIG,S4_MW_SIG : Std_logic;
+
+------------------------------------------------------------------------------------------ 
+--signals for bus2
+ signal BUS2_M1_BUSY_SIG,BUS2_M1_NREADY_SIG : std_logic;
+ signal BUS2_M1_MR_SIG,BUS2_M1_MW_SIG : std_logic;
+ signal BUS2_M1_ADDRBUS_SIG: std_logic_vector(daddr_size-1 downto 0);
+ signal BUS2_M1_RDATABUS_SIG: std_logic_vector(data_size-1 downto 0);
+ signal BUS2_M1_WDATABUS_SIG: std_logic_vector(data_size-1 downto 0);
+
+----------------------------------------------
+signal hexSignal,ledSignal,switchSignal: std_logic_vector(data_size-1 downto 0);
+signal hexSignaladdr,ledSignaladdr,switchSignaladdr: std_logic_vector(daddr_size-1 downto 0);
+------------------------------------------------------
+SIGNAL temp : Std_logic_vector(15 downto 0); --added Slave signals out
+
+--Signals for Audio
+signal myAudioOutL,myAudioOutR,myAudioInL,myAudioInR : signed(15 downto 0);
+signal myAudioOut, myAudioIn: std_logic_vector(31 downto 0);
+signal audioSignaladdr: std_logic_vector(15 downto 0);
+signal AuSamClk : std_logic;
+--
+signal tempmyAudioOutL, tempmyAudioOutR : signed(15 downto 0);
+
+begin 
+   resetn <= KEY(0);
+	reset_pll <= not KEY(0);
+	clk_pll_input<='0' & CLOCK_50;
+	clk_fft <= clk_out_pll(0);
+	clk<=clk_fft;
+	
+    IRAM : altsyncram
+	GENERIC MAP ( clock_enable_input_a => "BYPASS",	clock_enable_output_a => "BYPASS",init_file => "C:/Users/hgarg/Downloads/ass4_evgeny/imemory.mif",
+		intended_device_family => "Cyclone IV GX", lpm_hint => "ENABLE_RUNTIME_MOD=NO",	lpm_type => "altsyncram",
+		numwords_a => 2**iaddr_size, operation_mode => "SINGLE_PORT", outdata_aclr_a => "NONE",
+		outdata_reg_a => "UNREGISTERED", power_up_uninitialized => "FALSE", read_during_write_mode_port_a => "NEW_DATA_NO_NBE_READ",
+		widthad_a => iaddr_size, width_a => instr_size,	width_byteena_a => 1 )
+	PORT MAP (	address_a=>iaddr_out, clock0=>clk, data_a=>idata_in, rden_a=>I_ren, wren_a=>I_wen, q_a=>idata_in);
+
+	DRAM : altsyncram
+	GENERIC MAP ( clock_enable_input_a => "BYPASS",	clock_enable_output_a => "BYPASS",init_file => "C:/Users/hgarg/Downloads/ass4_evgeny/dmemory.mif",
+		intended_device_family => "Cyclone IV GX", lpm_hint => "ENABLE_RUNTIME_MOD=NO",	lpm_type => "altsyncram",
+		numwords_a => 2**12, operation_mode => "SINGLE_PORT", outdata_aclr_a => "NONE",
+		outdata_reg_a => "UNREGISTERED", power_up_uninitialized => "FALSE", read_during_write_mode_port_a => "NEW_DATA_NO_NBE_READ",
+		widthad_a => 12, width_a => data_size,width_byteena_a => 1 )
+	PORT MAP (	address_a=>S1_ADDRBUS_SIG(11 downto 0), clock0=>clk, data_a=>S1_ddata_in, rden_a=>S1_ren, wren_a=>S1_wen, q_a=>S1_ddata_out);
+----------------------------------------------------------------------------------------------------------------------------------	 
+	uut : ensc350 port map (clk, KEY(0),iaddr_out, idata_in, daddr_out,D_ren,D_wen,ddata_in, ddata_out );
+-----------------------------------------------------------------------------------------------------------------
+        my_dma : dma 
+		generic map (signal_active => '1', size => 32, addr_size => 16)
+		port map (clk, KEY(0), M2_BUSY_SIG,M2_MR_SIG,M2_MW_SIG,M2_NREADY_SIG,M2_ADDRBUS_SIG,M2_RDATABUS_SIG,M2_WDATABUS_SIG
+		,S4_BUSY_SIG,S4_MR_SIG,S4_MW_SIG, S4_NREADY_SIG, S4_ADDRBUS_SIG(3 downto 0),S4_ddata_out,S4_ddata_in );
+----------------------------------------------------------------------------------------------------------------------------
+	my_counter : counter
+		generic map ( addr_size => 16, data_size => 32, num_counters => 4, signal_active => '1')
+		port map (
+		clk, 
+		KEY(0),
+		counter_rdn_sig,
+		counter_wrn_sig,
+		counter_address_sig,
+		counter_data_in_sig,
+		counter_data_out_sig);
+
+my_fft: fft_core 
+port map (
+	CLK=>clk,
+	resetn=>KEY(0),
+	addr_in => addr_in_fft(7 downto 0),
+	mr=>mr_fft,mw=>mw_fft,
+	data_in=>data_in_fft,
+	data_out=>data_out_fft
+	);
+----------------------------------------------------------------------------------------------------------------------------
+-- Audio Unit 
+ my_Audio: Entity Work.AudioSubSystemStereo 
+	 port map (  iClk_50 => CLOCK_50, 
+	   AudMclk  => AUD_XCK, 
+	   Init   => reset_pll,   -- This is to initialize theAudio 
+	   I2C_Sclk  => I2C_SCLK,        
+	   I2C_Sdat  => I2C_SDAT,        
+	   Bclk   => AUD_BCLK,     
+	   AdcLrc  => AUD_ADCLRCK,       
+	   DacLrc  => AUD_DACLRCK,       
+	   AdcDat  => AUD_ADCDAT, 
+	   DacDat  => AUD_DACDAT, 
+	   SamClk  => AuSamClk,  -- Sampling Clock 
+	   AudioOutL  => myAudioOutL,       
+	   AudioOutR  => myAudioOutR,       
+	   AudioInL  => myAudioInL,       
+	   AudioInR  => myAudioInR 
+		);
+----------------------------------------------------------------------------------------------
+my_pll : altpll 
+ GENERIC MAP ( 
+  bandwidth_type => "AUTO",clk0_divide_by => 2,clk0_duty_cycle => 50,clk0_multiply_by => 
+1,clk0_phase_shift => "0",compensate_clock => "CLK0", 
+  inclk0_input_frequency => 20000,intended_device_family => "Cyclone IV E",lpm_hint => 
+"CBX_MODULE_PREFIX=PLL",lpm_type => "altpll", 
+  operation_mode => "NORMAL",pll_type => "AUTO",port_activeclock => 
+"PORT_UNUSED",port_areset => "PORT_USED",port_clkbad0 => "PORT_UNUSED", 
+  port_clkbad1 => "PORT_UNUSED",port_clkloss => "PORT_UNUSED",port_clkswitch => 
+"PORT_UNUSED",port_configupdate => "PORT_UNUSED", 
+  port_fbin => "PORT_UNUSED",port_inclk0 => "PORT_USED",port_inclk1 => 
+"PORT_UNUSED",port_locked => "PORT_USED",port_pfdena => "PORT_UNUSED", 
+  port_phasecounterselect => "PORT_UNUSED",port_phasedone => "PORT_UNUSED",port_phasestep 
+=> "PORT_UNUSED",port_phaseupdown => "PORT_UNUSED",
+  port_pllena => "PORT_UNUSED",port_scanaclr => "PORT_UNUSED",port_scanclk => 
+"PORT_UNUSED",port_scanclkena => "PORT_UNUSED", 
+  port_scandata => "PORT_UNUSED",port_scandataout => "PORT_UNUSED",port_scandone => 
+"PORT_UNUSED",port_scanread => "PORT_UNUSED", 
+  port_scanwrite => "PORT_UNUSED",port_clk0 => "PORT_USED",port_clk1 => 
+"PORT_UNUSED",port_clk2 => "PORT_UNUSED",port_clk3 => "PORT_UNUSED", 
+  port_clk4 => "PORT_UNUSED",port_clk5 => "PORT_UNUSED",port_clkena0 => 
+"PORT_UNUSED",port_clkena1 => "PORT_UNUSED",port_clkena2 => "PORT_UNUSED", 
+  port_clkena3 => "PORT_UNUSED",port_clkena4 => "PORT_UNUSED",port_clkena5 => 
+"PORT_UNUSED",port_extclk0 => "PORT_UNUSED",port_extclk1 => "PORT_UNUSED", 
+  port_extclk2 => "PORT_UNUSED",port_extclk3 => "PORT_UNUSED",self_reset_on_loss_lock => 
+"OFF",width_clock => 5) 
+PORT MAP (areset=>reset_pll, inclk=> clk_pll_input, clk=>clk_out_pll,locked=>LEDG(7) );
+---------------------------------------------------------------------------------------------------------------------------
+bus1 : ubus generic map (addr_width => daddr_size, data_width => data_size,
+ 		 s1_start=>X"1000",s1_end=>X"1fff", --mem	
+		 s2_start=>X"3000",s2_end=>X"3fff", --fft_core 
+ 		 s3_start=>X"2000",s3_end=>X"2fff", --Peripherals 
+		 s4_start=>X"0000",s4_end=>X"0007") --DMA
+		
+		port map ( clk,resetn, 
+		-- M1 processor
+		M1_BUSY=>'0',M1_MR=>D_ren, M1_MW=> D_wen, M1_NREADY=> M1_NREADY_SIG, M1_ADDRBUS=>daddr_out, M1_RDATABUS=> ddata_in, M1_WDATABUS =>ddata_out,
+		-- M2 dma
+		M2_BUSY=>'0',M2_MR=>M2_MR_SIG,M2_MW=>M2_MW_SIG,M2_NREADY=>M2_NREADY_SIG,M2_ADDRBUS=>M2_ADDRBUS_SIG,M2_RDATABUS=>M2_RDATABUS_SIG,M2_WDATABUS =>M2_WDATABUS_SIG, 	
+		--mem
+      		S1_BUSY=>open,S1_MR=>S1_ren,S1_MW=>S1_wen,S1_NREADY=>'0',S1_ADDRBUS=>S1_ADDRBUS_SIG, S1_RDATABUS=>S1_ddata_out, S1_WDATABUS=>S1_ddata_in,            
+          		--fft_core 
+		S2_BUSY=>open,S2_MR=>mr_fft,S2_MW=>mw_fft,S2_NREADY=>'0',S2_ADDRBUS=>addr_in_fft, S2_RDATABUS=>data_out_fft, S2_WDATABUS=>data_in_fft,
+		--Peripheralszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz
+           	S3_BUSY=>BUS2_M1_BUSY_SIG,
+		S3_MR=>BUS2_M1_MR_SIG,
+		S3_MW=>BUS2_M1_MW_SIG,
+		S3_NREADY=>BUS2_M1_NREADY_SIG,
+		S3_ADDRBUS=>BUS2_M1_ADDRBUS_SIG,
+		S3_RDATABUS=>BUS2_M1_RDATABUS_SIG ,
+		S3_WDATABUS=>BUS2_M1_WDATABUS_SIG,
+		--DMA
+		S4_BUSY=>S4_BUSY_SIG,
+		S4_MR=>S4_MR_SIG,
+		S4_MW=>S4_MW_SIG,
+		S4_NREADY=>S4_NREADY_SIG,
+		S4_ADDRBUS=>S4_ADDRBUS_SIG,
+		S4_RDATABUS=>S4_ddata_out,
+		S4_WDATABUS=>S4_ddata_in
+		);
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+bus2 : ubus generic map (addr_width => daddr_size, data_width => data_size,
+ 		 s1_start=>X"2000",s1_end=>X"20ff", --Counter  
+		 s2_start=>X"2100",s2_end=>X"2100", -- 7 seg
+ 		 s3_start=>X"2200",s3_end=>X"2200", -- Audio
+		 s4_start=>X"2300",s4_end=>X"2300") --Switch
+		
+		port map ( clk,resetn, 
+		-- M1 port
+		M1_BUSY=>BUS2_M1_BUSY_SIG,
+		M1_MR=>BUS2_M1_MR_SIG, 
+		M1_MW=> BUS2_M1_MW_SIG, 
+		M1_NREADY=> BUS2_M1_NREADY_SIG, 
+		M1_ADDRBUS=>BUS2_M1_ADDRBUS_SIG, 
+		M1_RDATABUS=> BUS2_M1_RDATABUS_SIG, 
+		M1_WDATABUS =>BUS2_M1_WDATABUS_SIG,
+
+		-- M2 port master
+		M2_BUSY=>'0',M2_MR=>'0',M2_MW=>'0',M2_NREADY=>open,M2_ADDRBUS=>x"0000",M2_RDATABUS=>open,M2_WDATABUS =>x"00000000", 
+		
+		-- S1 counter
+      		S1_BUSY=>open,S1_MR=>counter_rdn_sig,S1_MW=>counter_wrn_sig,S1_NREADY=>'0',S1_ADDRBUS=>counter_address_sig, S1_RDATABUS=>counter_data_out_sig, S1_WDATABUS=>counter_data_in_sig,            
+
+       -- S2 port for Hex Display 
+		S2_BUSY=>open,S2_MR=>open,S2_MW=>open,S2_NREADY=>'0',S2_ADDRBUS=>hexSignaladdr, S2_RDATABUS=>hexSignal, S2_WDATABUS=>hexSignal,
+		-- S3 port for Audio 
+           	S3_BUSY=>open,S3_MR=>open,S3_MW=>open,S3_NREADY=>'0',S3_ADDRBUS=>audioSignaladdr,S3_RDATABUS=>myAudioIn ,S3_WDATABUS=>myAudioOut,
+		-- S4 switch
+		S4_BUSY=>open,S4_MR=>open,S4_MW=>open,S4_NREADY=>'0',S4_ADDRBUS=>switchSignaladdr,S4_RDATABUS=>switchSignal,S4_WDATABUS=>ledSignal
+		);
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		I_wen <= '0'; I_ren <= '1';
+		d_bitwen <= (others=>'1'); I_bitwen <= (others=>'0');
+	
+		HEX_Display: process (clk, KEY(0))
+		begin 
+			if KEY(0) = '0' then
+				ledSignal<= x"00000000";
+				output<=x"00000000";
+				myAudioIn<=x"00000000";
+				myAudioOut<=x"00000000";
+				ledSignal<=x"00000000";
+			else if clk'event and clk='1'  then 
+					  LEDR<=SW;
+					  switchSignal<=x"0000" & SW;				
+
+----To run DEMO D uncomment this section 
+-- START UNCOMENTIBNG HERE		 					  
+--				 if (switchSignal(0) = '1') then
+--				     myAudioOutL <= shift_right(myAudioInL,2);
+--					  myAudioOutR <= shift_right(myAudioInR,2);
+--				 else if (switchSignal(1) = '1') then
+--				     myAudioOutL <= shift_left(myAudioInL,1);
+--					  myAudioOutR <= shift_left(myAudioInR,1);
+--			    else if (switchSignal(2) = '1') then			 	  
+--					  tempmyAudioOutL <=  to_signed( (to_integer(myAudioInR) + to_integer(myAudioInL)),16 ) ;
+--					  tempmyAudioOutR <=  to_signed( (to_integer(myAudioInR) + to_integer(myAudioInL)),16 ) ;
+--					  myAudioOutL <= shift_right(tempmyAudioOutL,1);
+--					  myAudioOutR <= shift_right(tempmyAudioOutR,1);					  
+--				 else
+--				 	  myAudioOutL <= myAudioInL;
+--					  myAudioOutR <= myAudioInR;
+--				  end if;
+--				 end if;
+--			 end if;
+--		 end if; 
+--		if (switchSignal(15)='1' and KEY(1) = '1') then -- if not pressed store to reg and saved on bus*
+--					myAudioOut<= std_logic_vector(myAudioOutL) & std_logic_vector(myAudioOutR);
+--					myAudioIn <= std_logic_vector(myAudioInL) & std_logic_vector(myAudioInR);	
+--					output<= std_logic_vector(myAudioInL) & std_logic_vector(myAudioInR);
+--		 end if;		  
+-- FINISH UNCOMENTIBNG HERE
+
+
+
+----To run DEMO A,B,C uncomment this section 
+-- START UNCOMENTIBNG HERE		  	 
+		if(hexSignaladdr = x"2100") then
+			output<=hexSignal;			
+		end if;
+ end if;
+-- FINISH UNCOMENTIBNG HERE		 
+ end if;
+ 
+ 
+end process;
+
+	-- convert to hex display and output
+	h0 : segment7_conv port map(D => output(3 DOWNTO 0), O => HEX0);
+	h1 : segment7_conv port map(D => output(7 downto 4), O => HEX1);
+	h2 : segment7_conv port map(D => output(11 downto 8), O => HEX2);
+	h3 : segment7_conv port map(D => output(15 downto 12), O => HEX3); 
+	h4 : segment7_conv port map(D => output(19 downto 16), O => HEX4);
+	h5 : segment7_conv port map(D => output(23 downto 20), O => HEX5);
+	h6 : segment7_conv port map(D => output(27 downto 24), O => HEX6);
+	h7 : segment7_conv port map(D => output(31 downto 28), O => HEX7);			
+end structural;
